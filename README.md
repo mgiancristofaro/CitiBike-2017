@@ -1,5 +1,4 @@
 # CitiBike-2017
-Data Analysis on the New York CitiBike from 2017
 CitiBike 2017 Data Report, README
 Matthew Giancristofaro
 
@@ -31,6 +30,14 @@ Part 1: Top 5 Stations with the Most Starts
 
 To create this report, I took the column “start station name’ from the master dataframe and created a new data frame called “start_stations_df”. Using this dataframe, I used the value_counts() function to count the frequency of each start station name and listed the top 5 most frequent. Using these values, I created a new data frame with the station name and frequency, and used this data frame to create a horizontal bar graph displaying the number of trips at that start station. 
 
+The top five stations are as follows:
+1.	Pershing Square North (Used 162,716 times)
+2.	E 17th & Broadway (Used 112,218 times)
+3.	Broadway & E 22nd St (Used 108,590 times)
+4.	West 21st & 6th Ave (Used 107,133 times)
+5.	West St & Chambers St (Used 105,610 times)
+
+
 Part 2: Trip Duration by User Type
 
 In this part of the code, I determine information about the trip duration that is filtered by the two user types, Customer and Subscribers. Customers are users who have purchases a day or three day pass, and subscribers are users who have purchased the annual pass. 
@@ -40,12 +47,15 @@ To create my report I went through the following steps:
 1) Create a new dataframe that indexes the columns 'tripduration' and 'usertype' from the dataframe
 
 2) Clean the data: 
-    a.	Remove all rows where tripduration is less than 90 seconds. This assumes that the user mistakenly took a bike out and        immediately docked it back in the station.
+    a.	Remove all rows where tripduration is less than 90 seconds. This assumes that the user mistakenly took a bike out and immediately docked it back in the station.
     b.	Remove all rows where trip duration is greater than 2.5 hours. CitiBikes website says the max trip duration for customers before getting charged is 30 minutes and for subscribers 45 minutes. Therefore, it is safe to assume that bikes that were docked after 2.5 hours may have been mis-docked. Removing this data is less than 8% of the total data and would therefore not impact overall data insights but would remove potential anomalies.  
 
 3) Convert the trip duration column into minutes. This allows a graph to be created that will not have an extremely massive y-scale because of large amounts of seconds. This makes the graph more manageable and readable. 
 
 4) Create a box plot that is grouped by user type. This boxplot reveals several pieces of necessary information for the customer to view, such as median, min and max trip durations.
+
+The Trip Duration by user type demonstrates that Customers travel longer than subscribers. The median trip duration for a customer is 21 minutes while a subscriber is just under 10 minutes:
+
 
 Part 3: Most Popular Trips in 2017
 
@@ -60,6 +70,13 @@ In this part of the code, I determined the most popular trips taken based on sta
 3) Sort the new data frame by number of trips, and call the top ten.
 
 4) Plot this data frame on a bar graph, revealing the number of trips taken per each trip. 
+
+The most popular trips are as follows: 
+1.	Central Park S & 6 Ave to Central Park S & 6th Ave (made 6,788 times)
+2.	Central Park S & 6th Ave to 5th Ave & East 88th St. (made 6,304 times)
+3.	East 7th St & Ave A to Cooper Square & East 7 St (made 5,972 times)
+4.	12th Ave & West 40th St to West St & Chambers St (made 5,396 times)
+5.	Grand Army Plaza & Central Park to Grand Army Plaza & Central Park (made 5,234 times)
 
 Part 4: Determining Rider Performance by Gender and Age for Average Distance and Median Speed
 
@@ -104,6 +121,9 @@ In this part of the code, I determine the busiest bike used in 2017 and calculat
 3) To calculate minutes in use, I created a for loop that takes the master dataframe, then filters it by each unique bikeid. When the master data only shows rows for that unique bike id, it calculated the sum of the column ‘tripduration’, and divides by 60 to calculate minutes. This value is added to an empty list, busybikelist, which is then added as a new column in the data frame after the for loop ends. 
 
 4) Last part is to plot this information. I created a twin bargraph with two different y axes. The first y axis measures number of trips made and the second y axis reveals minutes in use.
+
+The busiest bike was bike no. 25738. It was used 2,514 times for a total of 40,971 minutes in 2017. 
+
 
 
 Part 6: Predictive Model
@@ -152,6 +172,7 @@ Step 10) Create two data frames, one with only trip duration (the target variabl
 
 Step 11) Create the test and training sets, with 20% for testing and 80% for training.
 
-Step 12) Run the model and calculate the R^2 to reveal model accuracy. In this case, the R2 value of my model was 0.699. 
+Step 12) Run the model and calculate the R^2 to reveal model accuracy. In this case, the R2 value of my model was 0.699 using the variables “Distance in km,” “Age,” “Temperature high (F),” “usertype,” and “gender”
 
 DISCLAIMER: In this model, the start and end station names were not included as variables. While the prompt asked for these inputs, my computer could not successfully dummify these variables without crashing. Therefore, my model uses “Distance in km” in replacement, as these values will accommodate for every combination of start and end station.
+
